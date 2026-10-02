@@ -180,29 +180,29 @@ export default function TrussViewport3D() {
     }
 
     // Keep-Out Zones for active challenge
-    const challenge = MODULE_1_CHALLENGES.find((c) => c.id === activeChallengeId);
-    if (challenge && challenge.environment && challenge.environment.keepOutZones) {
-      for (const zone of challenge.environment.keepOutZones) {
-        const sizeX = Math.abs(zone.max[0] - zone.min[0]);
-        const sizeY = Math.abs(zone.max[1] - zone.min[1]);
-        const sizeZ = Math.max(0.5, Math.abs(zone.max[2] - zone.min[2]));
+    // const challenge = MODULE_1_CHALLENGES.find((c) => c.id === activeChallengeId);
+    // if (challenge && challenge.environment && challenge.environment.keepOutZones) {
+    //   for (const zone of challenge.environment.keepOutZones) {
+    //     const sizeX = Math.abs(zone.max[0] - zone.min[0]);
+    //     const sizeY = Math.abs(zone.max[1] - zone.min[1]);
+    //     const sizeZ = Math.max(0.5, Math.abs(zone.max[2] - zone.min[2]));
 
-        const posX = (zone.min[0] + zone.max[0]) / 2;
-        const posY = (zone.min[1] + zone.max[1]) / 2;
-        const posZ = (zone.min[2] + zone.max[2]) / 2;
+    //     const posX = (zone.min[0] + zone.max[0]) / 2;
+    //     const posY = (zone.min[1] + zone.max[1]) / 2;
+    //     const posZ = (zone.min[2] + zone.max[2]) / 2;
 
-        const zoneGeo = new THREE.BoxGeometry(sizeX, sizeY, sizeZ);
-        const zoneMat = new THREE.MeshBasicMaterial({
-          color: 0x0284c7,
-          transparent: true,
-          opacity: 0.15,
-          wireframe: true,
-        });
-        const zoneMesh = new THREE.Mesh(zoneGeo, zoneMat);
-        zoneMesh.position.set(posX, posY, posZ);
-        group.add(zoneMesh);
-      }
-    }
+    //     const zoneGeo = new THREE.BoxGeometry(sizeX, sizeY, sizeZ);
+    //     const zoneMat = new THREE.MeshBasicMaterial({
+    //       color: 0x0284c7,
+    //       transparent: true,
+    //       opacity: 0.15,
+    //       wireframe: true,
+    //     });
+    //     const zoneMesh = new THREE.Mesh(zoneGeo, zoneMat);
+    //     zoneMesh.position.set(posX, posY, posZ);
+    //     group.add(zoneMesh);
+    //   }
+    // }
 
     // Map node IDs to deflected world positions
     const nodeDeflectedPos = new Map();
@@ -490,7 +490,7 @@ export default function TrussViewport3D() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full min-h-[460px] bg-slate-950 overflow-hidden select-none"
+      className="relative w-full h-full min-h-115 bg-slate-950 overflow-hidden select-none"
     >
       <canvas
         ref={canvasRef}

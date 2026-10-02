@@ -93,6 +93,13 @@ export default function EngineeringHomePage() {
           {/* Quick Header Navigation */}
           <div className="flex items-center gap-3">
             <Link
+              href="/docs"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 hover:border-cyan-500/40 text-xs font-bold transition-all shadow-sm"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Documentation</span>
+            </Link>
+            <Link
               href="/subjects/me-201"
               className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs transition-all duration-150 shadow-md shadow-cyan-900/30 hover:shadow-cyan-500/20"
             >
@@ -105,9 +112,9 @@ export default function EngineeringHomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative w-full py-12 sm:py-16 border-b border-slate-800/80 bg-gradient-to-b from-slate-900/60 via-slate-950 to-slate-950 overflow-hidden">
+      <section className="relative w-full py-12 sm:py-16 border-b border-slate-800/80 bg-linear-to-b from-slate-900/60 via-slate-950 to-slate-950 overflow-hidden">
         {/* Subtle background engineering grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] bg-size-[24px_24px] opacity-40 pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
           {/* Accreditation Badge */}
@@ -165,11 +172,10 @@ export default function EngineeringHomePage() {
               <button
                 key={tab.id}
                 onClick={() => setSelectedFilter(tab.id)}
-                className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${
-                  selectedFilter === tab.id
+                className={`px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer ${selectedFilter === tab.id
                     ? 'bg-cyan-500 text-slate-950 shadow'
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>
@@ -202,7 +208,7 @@ export default function EngineeringHomePage() {
               >
                 {/* Glow border gradient when active */}
                 {isMe201 && (
-                  <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-cyan-500 via-emerald-400 to-cyan-500" />
+                  <div className="absolute top-0 right-0 left-0 h-1 bg-linear-to-r from-cyan-500 via-emerald-400 to-cyan-500" />
                 )}
 
                 {/* Top Card Bar: Subject Code + Status Badge */}
@@ -257,7 +263,7 @@ export default function EngineeringHomePage() {
                   <ul className="space-y-1 text-[11px] text-slate-300">
                     {subj.features.slice(0, 3).map((feat, i) => (
                       <li key={i} className="flex items-start gap-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -285,11 +291,10 @@ export default function EngineeringHomePage() {
 
                   <Link
                     href={destinationHref}
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs transition-all cursor-pointer ${
-                      isMe201
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs transition-all cursor-pointer ${isMe201
                         ? 'bg-cyan-600 hover:bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-900/40 hover:shadow-cyan-500/20'
                         : 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 hover:border-slate-600'
-                    }`}
+                      }`}
                   >
                     <span>{isMe201 ? 'Launch 3D Virtual Lab' : 'Enter Course Lab & Preview'}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -371,7 +376,11 @@ export default function EngineeringHomePage() {
             <span>FailForward Mechanical & Aerospace Engineering Virtual Labs</span>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex items-center gap-4 text-xs">
+            <Link href="/docs" className="text-cyan-400 hover:text-cyan-300 font-bold underline transition-colors">
+              Documentation & Manual
+            </Link>
+            <span>&bull;</span>
             <span>Next.js 16 &bull; Three.js &bull; Tailwind CSS</span>
             <span>&bull;</span>
             <span className="text-emerald-400 font-mono">STATUS: OPERATIONAL</span>

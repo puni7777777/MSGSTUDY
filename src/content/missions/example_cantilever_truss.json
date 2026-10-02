@@ -1,0 +1,50 @@
+{
+  "$schema": "https://teardownlab.com/schemas/mission.v1.json",
+  "id": "cantilever_balcony_overhang",
+  "title": "The High-Altitude Cantilever Overhang",
+  "subtitle": "Support an observation platform 6m out into space without column support underneath.",
+  "difficulty": "Intermediate",
+  "estimatedMinutes": 15,
+  "scenario": "An architectural mountain observatory requires a 6-meter cantilevered viewing deck suspended over an alpine cliff edge. The deck must support tourist crowd live loads at the tip (-35 kN) while resisting intense upward and downward wind gusts.",
+  "backgroundBriefing": "Cantilever trusses experience opposite behavior to simple spans: the TOP chords are in heavy TENSION (preventing droop), while the BOTTOM chords are in severe COMPRESSION (thrusting into the mountain anchor wall). Watch out for Euler column buckling in the bottom chord!",
+  "pedagogicalTakeaways": [
+    "Cantilever mechanics invert chord stresses: top chords are in tension, bottom chords are in compression.",
+    "The anchor joints at the wall carry massive reaction forces and overturning moments.",
+    "Bottom compressive struts are high-risk candidates for Euler bifurcation buckling."
+  ],
+  "constraints": {
+    "minFactorOfSafety": 1.6,
+    "maxMassKg": 1200,
+    "maxBudgetDollars": 2500,
+    "maxDeflectionMm": 15.0
+  },
+  "environment": {
+    "spanMeters": 8,
+    "heightMeters": 4,
+    "groundY": 0
+  },
+  "nodes": [
+    { "id": "wall_bot", "x": 0, "y": 0, "support": "fixed" },
+    { "id": "wall_top", "x": 0, "y": 2.5, "support": "fixed" },
+    { "id": "b1", "x": 2.0, "y": 0 },
+    { "id": "t1", "x": 2.0, "y": 2.5 },
+    { "id": "b2", "x": 4.0, "y": 0 },
+    { "id": "t2", "x": 4.0, "y": 2.5 },
+    { "id": "tip", "x": 6.0, "y": 1.25, "loadY": -35.0 }
+  ],
+  "members": [
+    { "from": "wall_top", "to": "t1", "material": "steel", "section": "tube_80x4mm" },
+    { "from": "t1", "to": "t2", "material": "steel", "section": "tube_80x4mm" },
+    { "from": "t2", "to": "tip", "material": "steel", "section": "tube_80x4mm" },
+
+    { "from": "wall_bot", "to": "b1", "material": "steel", "section": "tube_120x5mm" },
+    { "from": "b1", "to": "b2", "material": "steel", "section": "tube_120x5mm" },
+    { "from": "b2", "to": "tip", "material": "steel", "section": "tube_120x5mm" },
+
+    { "from": "wall_bot", "to": "t1", "material": "steel", "section": "round_50mm" },
+    { "from": "b1", "to": "t1", "material": "steel", "section": "round_30mm" },
+    { "from": "b1", "to": "t2", "material": "steel", "section": "round_50mm" },
+    { "from": "b2", "to": "t2", "material": "steel", "section": "round_30mm" }
+  ],
+  "tags": ["Cantilever", "Observatory", "Buckling", "Overturning Moment"]
+}

@@ -75,31 +75,28 @@ export default function LoadScrubber() {
         </span>
         <button
           onClick={() => setColorMode('stress')}
-          className={`px-2.5 py-1 rounded transition-colors ${
-            colorMode === 'stress'
+          className={`px-2.5 py-1 rounded transition-colors ${colorMode === 'stress'
               ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold'
               : 'text-slate-400 hover:text-slate-200'
-          }`}
+            }`}
         >
           Stress Heatmap
         </button>
         <button
           onClick={() => setColorMode('tension_compression')}
-          className={`px-2.5 py-1 rounded transition-colors ${
-            colorMode === 'tension_compression'
+          className={`px-2.5 py-1 rounded transition-colors ${colorMode === 'tension_compression'
               ? 'bg-orange-500/20 text-orange-300 border border-orange-500/40 font-bold'
               : 'text-slate-400 hover:text-slate-200'
-          }`}
+            }`}
         >
           Tension / Compression
         </button>
         <button
           onClick={() => setColorMode('material')}
-          className={`px-2.5 py-1 rounded transition-colors ${
-            colorMode === 'material'
+          className={`px-2.5 py-1 rounded transition-colors ${colorMode === 'material'
               ? 'bg-slate-600/40 text-slate-200 border border-slate-500 font-bold'
               : 'text-slate-400 hover:text-slate-200'
-          }`}
+            }`}
         >
           Material
         </button>
@@ -110,7 +107,7 @@ export default function LoadScrubber() {
         {!isDestructionTesting ? (
           <button
             onClick={runDestructionTest}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white rounded font-bold shadow-lg shadow-red-950/50 hover:shadow-red-900/60 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white rounded font-bold shadow-lg shadow-red-950/50 hover:shadow-red-900/60 transition-all cursor-pointer"
           >
             <Flame className="w-4 h-4 text-amber-200 animate-bounce" />
             TEARDOWN TO FAILURE

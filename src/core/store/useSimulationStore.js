@@ -3,6 +3,13 @@ import { PRESET_SECTIONS } from '../materials';
 import { solveTrussFEA } from '../solvers/trussFea';
 import { simulateDestructiveFailure } from '../solvers/progressiveCollapse';
 import { MODULE_1_CHALLENGES } from '../../content/challenges/module1-challenges';
+import {
+  getAllMissions,
+  getMissionById,
+  loadCustomMissionsFromStorage,
+  saveCustomMissionsToStorage,
+} from '../missions/missionRegistry';
+import { normalizeMission } from '../missions/missionSchema';
 
 const defaultChallenge = MODULE_1_CHALLENGES[0];
 const initialResult = solveTrussFEA(defaultChallenge.initialNodes, defaultChallenge.initialMembers, 1.0);
@@ -19,10 +26,11 @@ export const useSimulationStore = create((set, get) => ({
   builderTool: 'select',
   memberDraftStartNodeId: null,
   showGrid: true,
-  showSfdBmd: true,
+  showSfdBmd: false,
   showFormulasModal: false,
   showPostMortemModal: false,
   showChallengeModal: false,
+  showMissionStudioModal: false,
   cameraPreset: 'front',
 
   // ANSYS Universal Stress Scale & Range Configuration
@@ -34,7 +42,7 @@ export const useSimulationStore = create((set, get) => ({
 
   // Academic Course & Subject Metadata Configuration
   activeSubjectId: 'me-statics-fea',
-  isCourseMetaCollapsed: false,
+  isCourseMetaCollapsed: true,
   upcomingSubjectPreview: null,
 
   solverResult: initialResult,
@@ -42,14 +50,41 @@ export const useSimulationStore = create((set, get) => ({
   isDestructionTesting: false,
   currentCollapseStepIndex: 0,
 
+  // Custom User Missions & Mission Registry Integration
+  customMissions: loadCustomMissionsFromStorage(),
+
   activeChallengeId: defaultChallenge.id,
 
+  setShowMissionStudioModal: (show) => set({ showMissionStudioModal: show }),
+
+  addCustomMission: (missionData) => {
+    const normalized = normalizeMission({ ...missionData, isCustom: true });
+    const { customMissions, loadChallenge } = get();
+    const updated = [...customMissions.filter((m) => m.id !== normalized.id), normalized];
+    saveCustomMissionsToStorage(updated);
+    set({ customMissions: updated });
+    loadChallenge(normalized.id);
+    return normalized;
+  },
+
+  removeCustomMission: (missionId) => {
+    const { customMissions, activeChallengeId, loadChallenge } = get();
+    const updated = customMissions.filter((m) => m.id !== missionId);
+    saveCustomMissionsToStorage(updated);
+    set({ customMissions: updated });
+    if (activeChallengeId === missionId) {
+      loadChallenge(MODULE_1_CHALLENGES[0].id);
+    }
+  },
+
   loadChallenge: (challengeId) => {
-    const ch = MODULE_1_CHALLENGES.find((c) => c.id === challengeId) || defaultChallenge;
+    const { customMissions } = get();
+    const ch = getMissionById(challengeId, customMissions);
     const result = solveTrussFEA(ch.initialNodes, ch.initialMembers, ch.suggestedLoadFactor);
 
     set({
       activeChallengeId: ch.id,
+      builderTool: 'select',
       nodes: ch.initialNodes.map((n) => ({ ...n, constraint: [...n.constraint] })),
       members: ch.initialMembers.map((m) => ({ ...m })),
       selectedNodeId: null,
@@ -81,9 +116,17 @@ export const useSimulationStore = create((set, get) => ({
 
   setDeformationScale: (scale) => set({ deformationScale: scale }),
   setColorMode: (mode) => set({ colorMode: mode }),
-  setBuilderTool: (tool) => set({ builderTool: tool, memberDraftStartNodeId: null }),
+  setBuilderTool: (tool) => {
+    const { activeChallengeId } = get();
+    if (activeChallengeId !== 'custom_sim' && tool !== 'select') {
+      return;
+    }
+    set({ builderTool: tool, memberDraftStartNodeId: null });
+  },
   setMemberDraftStart: (nodeId) => set({ memberDraftStartNodeId: nodeId }),
   setCameraPreset: (preset) => set({ cameraPreset: preset }),
+  toggleGrid: () => set((s) => ({ showGrid: !s.showGrid })),
+  setShowGrid: (show) => set({ showGrid: show }),
   toggleSfdBmd: () => set((s) => ({ showSfdBmd: !s.showSfdBmd })),
   setShowFormulasModal: (show) => set({ showFormulasModal: show }),
   setShowPostMortemModal: (show) => set({ showPostMortemModal: show }),

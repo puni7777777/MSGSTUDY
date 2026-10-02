@@ -21,10 +21,10 @@ export default function PostMortemModal() {
   if (!showPostMortemModal || !destructionReport) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4 select-none">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4 select-none">
       <div className="w-full max-w-xl bg-slate-900 border border-red-500/50 rounded-xl shadow-2xl overflow-hidden font-mono text-xs">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 bg-gradient-to-r from-red-950/80 to-slate-900 border-b border-red-900/50">
+        <div className="flex items-center justify-between p-4 bg-linear-to-r from-red-950/80 to-slate-900 border-b border-red-900/50">
           <div className="flex items-center gap-2.5">
             <div className="p-2 bg-red-600/20 border border-red-500 rounded-lg">
               <Flame className="w-5 h-5 text-red-400" />
@@ -116,11 +116,10 @@ export default function PostMortemModal() {
                 <div
                   key={idx}
                   onClick={() => setCollapseStep(idx)}
-                  className={`p-2 rounded border cursor-pointer transition-colors ${
-                    currentCollapseStepIndex === idx
+                  className={`p-2 rounded border cursor-pointer transition-colors ${currentCollapseStepIndex === idx
                       ? 'bg-slate-800 border-red-500 text-slate-100'
                       : 'bg-slate-950/50 border-slate-800 text-slate-400 hover:bg-slate-800/50'
-                  }`}
+                    }`}
                 >
                   <div className="flex justify-between font-bold text-[11px]">
                     <span>Step {idx + 1}: Load {(step.loadMultiplier * 100).toFixed(0)}%</span>

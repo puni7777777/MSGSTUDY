@@ -4,8 +4,10 @@ import React from 'react';
 import { useSimulationStore } from '../../core/store/useSimulationStore';
 import { MATERIAL_DATABASE, PRESET_SECTIONS } from '../../core/materials';
 import { X, Layers, Compass } from 'lucide-react';
+import NumericStepperInput from './NumericStepperInput';
 
 export default function InspectorPanel() {
+  const activeChallengeId = useSimulationStore((s) => s.activeChallengeId);
   const selectedNodeId = useSimulationStore((s) => s.selectedNodeId);
   const selectedMemberId = useSimulationStore((s) => s.selectedMemberId);
   const nodes = useSimulationStore((s) => s.nodes);
@@ -18,6 +20,9 @@ export default function InspectorPanel() {
   const updateMemberSection = useSimulationStore((s) => s.updateMemberSection);
   const updateNodeSupport = useSimulationStore((s) => s.updateNodeSupport);
   const updateNodeLoad = useSimulationStore((s) => s.updateNodeLoad);
+
+  const isStressScaleExpanded = useSimulationStore((s) => s.isStressScaleExpanded);
+  const rightPositionClass = isStressScaleExpanded ? 'sm:right-[19.5rem]' : 'sm:right-16';
 
   if (!selectedNodeId && !selectedMemberId) {
     return null;
@@ -33,7 +38,7 @@ export default function InspectorPanel() {
     const reaction = solverResult.reactions && solverResult.reactions[node.id];
 
     return (
-      <div className="absolute top-4 right-4 w-80 max-h-[calc(100%-2rem)] overflow-y-auto bg-slate-900/95 backdrop-blur border border-slate-700/80 rounded-lg shadow-2xl p-4 font-mono text-xs z-30 select-none animate-in fade-in slide-in-from-right-4 duration-150">
+      <div className={`absolute top-4 right-4 ${rightPositionClass} w-[calc(100vw-2rem)] sm:w-80 max-h-[calc(100%-2rem)] overflow-y-auto bg-slate-900/95 backdrop-blur border border-slate-700/80 rounded-lg shadow-2xl p-4 font-mono text-xs z-30 select-none animate-in fade-in slide-in-from-right-4 duration-150`}>
         <div className="flex items-center justify-between pb-2 border-b border-slate-800">
           <div className="flex items-center gap-2">
             <Compass className="w-4 h-4 text-cyan-400" />
@@ -66,53 +71,82 @@ export default function InspectorPanel() {
 
           {/* Support Boundary Condition */}
           <div>
-            <label className="text-[10px] text-slate-400 block mb-1 uppercase tracking-wider">
-              Support Boundary Condition
-            </label>
-            <select
-              value={node.supportType}
-              onChange={(e) => updateNodeSupport(node.id, e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded px-2.5 py-1.5 text-slate-200 focus:outline-none focus:border-cyan-500"
-            >
-              <option value="free">Free (Internal Joint)</option>
-              <option value="pinned">Pinned Support (Ux=0, Uy=0)</option>
-              <option value="roller_x">Roller Support (Uy=0, Free X)</option>
-              <option value="roller_y">Roller Support (Ux=0, Free Y)</option>
-              <option value="fixed">Fixed Foundation (All Locked)</option>
-            </select>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[10px] text-slate-400 uppercase tracking-wider">
+                Support Boundary Condition
+              </label>
+              {!isCustomSim && (
+                <span className="text-[10px] text-slate-500 font-semibold">(Predefined)</span>
+              )}
+            </div>
+            {isCustomSim ? (
+              <select
+                value={node.supportType}
+                onChange={(e) => updateNodeSupport(node.id, e.target.value)}
+                className="w-full bg-slate-800 border border-slate-700 rounded px-2.5 py-1.5 text-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer"
+              >
+                <option value="free">Free (Internal Joint)</option>
+                <option value="pinned">Pinned Support (Ux=0, Uy=0)</option>
+                <option value="roller_x">Roller Support (Uy=0, Free X)</option>
+                <option value="roller_y">Roller Support (Ux=0, Free Y)</option>
+                <option value="fixed">Fixed Foundation (All Locked)</option>
+              </select>
+            ) : (
+              <div className="w-full bg-slate-950/70 border border-slate-800 rounded px-2.5 py-1.5 text-slate-300 font-semibold capitalize">
+                {node.supportType.replace('_', ' ')}
+              </div>
+            )}
           </div>
 
           {/* Applied External Point Load */}
           <div>
-            <label className="text-[10px] text-slate-400 block mb-1 uppercase tracking-wider">
-              Applied Point Force (kN)
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              <div>
-                <span className="text-[9px] text-slate-400">Fx (Horizontal)</span>
-                <input
-                  type="number"
-                  step="5"
-                  value={(node.fx / 1000).toFixed(0)}
-                  onChange={(e) =>
-                    updateNodeLoad(node.id, parseFloat(e.target.value || '0') * 1000, node.fy, node.fz)
-                  }
-                  className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1 text-slate-200"
-                />
-              </div>
-              <div>
-                <span className="text-[9px] text-slate-400">Fy (Vertical)</span>
-                <input
-                  type="number"
-                  step="5"
-                  value={(node.fy / 1000).toFixed(0)}
-                  onChange={(e) =>
-                    updateNodeLoad(node.id, node.fx, parseFloat(e.target.value || '0') * 1000, node.fz)
-                  }
-                  className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1 text-slate-200"
-                />
-              </div>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[10px] text-slate-400 uppercase tracking-wider">
+                Applied Point Force (kN)
+              </label>
+              {!isCustomSim && (
+                <span className="text-[10px] text-slate-500 font-semibold">(Predefined)</span>
+              )}
             </div>
+            {isCustomSim ? (
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <span className="text-[10px] text-slate-400 block mb-0.5">Fx (Horizontal)</span>
+                  <NumericStepperInput
+                    id="inspector-fx-input"
+                    ariaLabel="Horizontal Force Fx"
+                    step={5}
+                    value={Math.round(node.fx / 1000)}
+                    onChange={(v) => updateNodeLoad(node.id, v * 1000, node.fy, node.fz)}
+                    precision={0}
+                    accent="cyan"
+                  />
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block mb-0.5">Fy (Vertical)</span>
+                  <NumericStepperInput
+                    id="inspector-fy-input"
+                    ariaLabel="Vertical Force Fy"
+                    step={5}
+                    value={Math.round(node.fy / 1000)}
+                    onChange={(v) => updateNodeLoad(node.id, node.fx, v * 1000, node.fz)}
+                    precision={0}
+                    accent="cyan"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2 bg-slate-950/70 p-2 rounded border border-slate-800 text-center">
+                <div>
+                  <span className="text-[10px] text-slate-400 block">Fx</span>
+                  <span className="text-slate-200 font-bold">{(node.fx / 1000).toFixed(1)} kN</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-400 block">Fy</span>
+                  <span className="text-slate-200 font-bold">{(node.fy / 1000).toFixed(1)} kN</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Real-Time FEA Telemetry for Joint */}
@@ -124,7 +158,7 @@ export default function InspectorPanel() {
               <span>Total Deflection:</span>
               <span className="font-semibold text-cyan-300">{dispMagMm.toFixed(2)} mm</span>
             </div>
-            <div className="flex justify-between text-slate-400 text-[11px]">
+            <div className="flex justify-between text-slate-400 text-xs">
               <span>dx: {(disp[0] * 1000).toFixed(2)} mm</span>
               <span>dy: {(disp[1] * 1000).toFixed(2)} mm</span>
             </div>
@@ -155,7 +189,7 @@ export default function InspectorPanel() {
   const mat = MATERIAL_DATABASE[member.materialId] || MATERIAL_DATABASE.structural_steel_a36;
 
   return (
-    <div className="absolute top-4 right-4 w-84 max-h-[calc(100%-2rem)] overflow-y-auto bg-slate-900/95 backdrop-blur border border-slate-700/80 rounded-lg shadow-2xl p-4 font-mono text-xs z-30 select-none animate-in fade-in slide-in-from-right-4 duration-150">
+    <div className={`absolute top-4 right-4 ${rightPositionClass} w-[calc(100vw-2rem)] sm:w-84 max-h-[calc(100%-2rem)] overflow-y-auto bg-slate-900/95 backdrop-blur border border-slate-700/80 rounded-lg shadow-2xl p-4 font-mono text-xs z-30 select-none animate-in fade-in slide-in-from-right-4 duration-150`}>
       <div className="flex items-center justify-between pb-2 border-b border-slate-800">
         <div className="flex items-center gap-2">
           <Layers className="w-4 h-4 text-cyan-400" />

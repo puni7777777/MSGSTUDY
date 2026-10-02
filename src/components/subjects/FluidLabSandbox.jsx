@@ -123,7 +123,7 @@ export default function FluidLabSandbox({ subject }) {
           {/* Wind Tunnel Streamlines SVG Visualizer */}
           <div className="relative w-full h-64 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden">
             {/* Background Wind Tunnel Grid */}
-            <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40" />
+            <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] bg-size-[16px_16px] opacity-40" />
 
             {/* Streamlines */}
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -143,9 +143,8 @@ export default function FluidLabSandbox({ subject }) {
                     ? -offset * 0.4
                     : offset * 0.8
                   : -alpha * (offset < 0 ? 1.8 : 0.8);
-                const pathD = `M 10 ${yBase} Q 200 ${yBase + deflection} 500 ${
-                  yBase + deflection * 1.4
-                }`;
+                const pathD = `M 10 ${yBase} Q 200 ${yBase + deflection} 500 ${yBase + deflection * 1.4
+                  }`;
 
                 return (
                   <path
@@ -224,9 +223,8 @@ export default function FluidLabSandbox({ subject }) {
                 Drag Coefficient (C_D)
               </span>
               <span
-                className={`text-lg font-bold ${
-                  aero.isStalled ? 'text-red-400' : 'text-amber-400'
-                }`}
+                className={`text-lg font-bold ${aero.isStalled ? 'text-red-400' : 'text-amber-400'
+                  }`}
               >
                 {aero.cd}
               </span>
@@ -310,11 +308,10 @@ export default function FluidLabSandbox({ subject }) {
                   <button
                     key={af.id}
                     onClick={() => setAirfoilType(af.id)}
-                    className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer border ${
-                      airfoilType === af.id
+                    className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer border ${airfoilType === af.id
                         ? 'bg-sky-500/20 text-sky-300 border-sky-500/50'
                         : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-600'
-                    }`}
+                      }`}
                   >
                     {af.label}
                   </button>
@@ -347,7 +344,7 @@ export default function FluidLabSandbox({ subject }) {
           {/* Aerodynamic Regime Highlights */}
           <div className="space-y-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800 text-xs">
             <div className="p-2 rounded bg-slate-900/80 border border-slate-800 flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
+              <div className="w-2 h-2 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
               <div>
                 <span className="font-bold text-white block">Linear Lift Region (&alpha; &lt; 10&deg;)</span>
                 <span className="text-[11px] text-slate-400">
@@ -357,7 +354,7 @@ export default function FluidLabSandbox({ subject }) {
             </div>
 
             <div className="p-2 rounded bg-slate-900/80 border border-slate-800 flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
+              <div className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 shrink-0" />
               <div>
                 <span className="font-bold text-white block">Adverse Pressure Gradient Region</span>
                 <span className="text-[11px] text-slate-400">
@@ -367,7 +364,7 @@ export default function FluidLabSandbox({ subject }) {
             </div>
 
             <div className="p-2 rounded bg-slate-900/80 border border-slate-800 flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-red-400 mt-1.5 flex-shrink-0" />
+              <div className="w-2 h-2 rounded-full bg-red-400 mt-1.5 shrink-0" />
               <div>
                 <span className="font-bold text-white block">Leading-Edge / Trailing-Edge Stall</span>
                 <span className="text-[11px] text-slate-400">

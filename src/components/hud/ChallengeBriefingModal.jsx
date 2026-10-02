@@ -3,7 +3,7 @@
 import React from 'react';
 import confetti from 'canvas-confetti';
 import { useSimulationStore } from '../../core/store/useSimulationStore';
-import { MODULE_1_CHALLENGES } from '../../content/challenges/module1-challenges';
+import { getAllMissions } from '../../core/missions/missionRegistry';
 import {
   Award,
   CheckCircle2,
@@ -17,13 +17,15 @@ export default function ChallengeBriefingModal() {
   const showChallengeModal = useSimulationStore((s) => s.showChallengeModal);
   const setShowChallengeModal = useSimulationStore((s) => s.setShowChallengeModal);
   const activeChallengeId = useSimulationStore((s) => s.activeChallengeId);
+  const customMissions = useSimulationStore((s) => s.customMissions);
   const loadChallenge = useSimulationStore((s) => s.loadChallenge);
   const solverResult = useSimulationStore((s) => s.solverResult);
 
   if (!showChallengeModal) return null;
 
+  const allMissions = getAllMissions(customMissions);
   const challenge =
-    MODULE_1_CHALLENGES.find((c) => c.id === activeChallengeId) || MODULE_1_CHALLENGES[0];
+    allMissions.find((c) => c.id === activeChallengeId) || allMissions[0];
   const constraints = challenge.constraints;
 
   const fos = solverResult.minFactorOfSafety;
@@ -49,7 +51,7 @@ export default function ChallengeBriefingModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 select-none">
+    <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 select-none">
       <div className="w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden font-mono text-xs">
         {/* Header */}
         <div className="flex items-center justify-between p-4 bg-slate-800/80 border-b border-slate-700">
@@ -119,11 +121,10 @@ export default function ChallengeBriefingModal() {
             <div className="grid grid-cols-2 gap-2.5">
               {/* FOS */}
               <div
-                className={`p-3 rounded-lg border flex items-center justify-between ${
-                  passFos
+                className={`p-3 rounded-lg border flex items-center justify-between ${passFos
                     ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300'
                     : 'bg-red-950/30 border-red-500/40 text-red-300'
-                }`}
+                  }`}
               >
                 <div>
                   <div className="text-[10px] uppercase opacity-75">Factor of Safety</div>
@@ -140,11 +141,10 @@ export default function ChallengeBriefingModal() {
 
               {/* Mass */}
               <div
-                className={`p-3 rounded-lg border flex items-center justify-between ${
-                  passMass
+                className={`p-3 rounded-lg border flex items-center justify-between ${passMass
                     ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300'
                     : 'bg-red-950/30 border-red-500/40 text-red-300'
-                }`}
+                  }`}
               >
                 <div>
                   <div className="text-[10px] uppercase opacity-75">Structural Mass</div>
@@ -161,11 +161,10 @@ export default function ChallengeBriefingModal() {
 
               {/* Cost */}
               <div
-                className={`p-3 rounded-lg border flex items-center justify-between ${
-                  passCost
+                className={`p-3 rounded-lg border flex items-center justify-between ${passCost
                     ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300'
                     : 'bg-red-950/30 border-red-500/40 text-red-300'
-                }`}
+                  }`}
               >
                 <div>
                   <div className="text-[10px] uppercase opacity-75">Component Budget</div>
@@ -182,11 +181,10 @@ export default function ChallengeBriefingModal() {
 
               {/* Deflection */}
               <div
-                className={`p-3 rounded-lg border flex items-center justify-between ${
-                  passDefl
+                className={`p-3 rounded-lg border flex items-center justify-between ${passDefl
                     ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300'
                     : 'bg-red-950/30 border-red-500/40 text-red-300'
-                }`}
+                  }`}
               >
                 <div>
                   <div className="text-[10px] uppercase opacity-75">Max Deflection</div>
@@ -220,11 +218,10 @@ export default function ChallengeBriefingModal() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleTestAndCelebrate}
-              className={`px-4 py-2 rounded font-bold transition-all cursor-pointer ${
-                isAllPassed
-                  ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-950/50'
+              className={`px-4 py-2 rounded font-bold transition-all cursor-pointer ${isAllPassed
+                  ? 'bg-linear-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-950/50'
                   : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200'
-              }`}
+                }`}
             >
               Verify Certification
             </button>

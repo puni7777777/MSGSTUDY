@@ -189,9 +189,9 @@ export default function StressLegend() {
   }
 
   return (
-    <div className="absolute bottom-4 right-4 w-72 bg-slate-900/95 backdrop-blur border border-slate-800 rounded-xl shadow-2xl p-3.5 font-mono text-xs z-20 select-none animate-in fade-in duration-150">
+    <div className="absolute bottom-4 right-4 w-72 max-h-[calc(100%-2rem)] overflow-y-auto bg-slate-900/95 backdrop-blur border border-slate-800 rounded-xl shadow-2xl p-2.5 sm:p-3 font-mono text-xs z-20 select-none animate-in fade-in duration-150">
       {/* Header & Controls */}
-      <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-1.5 border-b border-slate-800">
         <div className="flex items-center gap-1.5">
           <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
           <span className="font-bold text-slate-200 text-[11px] uppercase tracking-wider">
@@ -200,11 +200,10 @@ export default function StressLegend() {
         </div>
         <div className="flex items-center gap-1">
           <span
-            className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${
-              stressScaleMode === 'auto'
+            className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${stressScaleMode === 'auto'
                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                 : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-            }`}
+              }`}
           >
             {stressScaleMode}
           </span>
@@ -219,36 +218,34 @@ export default function StressLegend() {
       </div>
 
       {/* Metric Mode Toggle (MPa vs Demand Ratio) */}
-      <div className="grid grid-cols-2 gap-1 bg-slate-950/80 p-1 rounded-lg border border-slate-800 mt-2 text-[10px]">
+      <div className="grid grid-cols-2 gap-1 bg-slate-950/80 p-1 rounded-lg border border-slate-800 mt-1.5 text-[10px]">
         <button
           onClick={() => setStressDisplayMetric('stress_mpa')}
-          className={`py-1 rounded font-semibold transition-all cursor-pointer ${
-            isMpa
+          className={`py-0.5 rounded font-semibold transition-all cursor-pointer ${isMpa
               ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm shadow-cyan-500/20'
               : 'text-slate-400 hover:text-slate-200'
-          }`}
+            }`}
         >
           Stress (MPa)
         </button>
         <button
           onClick={() => setStressDisplayMetric('demand_ratio')}
-          className={`py-1 rounded font-semibold transition-all cursor-pointer ${
-            !isMpa
+          className={`py-0.5 rounded font-semibold transition-all cursor-pointer ${!isMpa
               ? 'bg-cyan-500 text-slate-950 font-bold shadow-sm shadow-cyan-500/20'
               : 'text-slate-400 hover:text-slate-200'
-          }`}
+            }`}
         >
           Demand (&sigma;/&sigma;_y)
         </button>
       </div>
 
       {/* Upper Limit Range Controller */}
-      <div className="mt-2.5 bg-slate-950/50 p-2 rounded-lg border border-slate-800/80">
-        <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1">
-          <span className="uppercase font-semibold tracking-wider flex items-center gap-1 text-red-400">
+      <div className="mt-1.5 bg-slate-950/50 p-1.5 rounded-lg border border-slate-800/80">
+        <div className="flex items-center justify-between text-[10px] text-slate-400 mb-0.5">
+          <span className="uppercase font-semibold tracking-wider flex items-center gap-1 text-red-400 text-[9px]">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500" /> Upper Limit (Max)
           </span>
-          <span className="text-slate-400">{isMpa ? 'MPa' : 'Ratio'}</span>
+          <span className="text-slate-400 text-[9px]">{isMpa ? 'MPa' : 'Ratio'}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <button
@@ -276,10 +273,10 @@ export default function StressLegend() {
       </div>
 
       {/* Vertical ANSYS Rainbow Scale & Numerical Contours */}
-      <div className="flex items-center gap-3 my-2.5 px-1 relative">
+      <div className="flex items-center gap-3 my-1.5 px-1 relative">
         {/* The Vertical Rainbow Bar */}
         <div
-          className="w-5 h-48 rounded-md shadow-inner relative border border-slate-700/80 flex-shrink-0"
+          className="w-5 h-36 rounded-md shadow-inner relative border border-slate-700/80 shrink-0"
           style={{
             background:
               'linear-gradient(to bottom, #dc2626 0%, #ea580c 14%, #f97316 28%, #eab308 42%, #84cc16 57%, #10b981 71%, #06b6d4 82%, #0284c7 92%, #1e40af 100%)',
@@ -294,7 +291,7 @@ export default function StressLegend() {
         </div>
 
         {/* Numerical Contour Levels */}
-        <div className="flex-1 flex flex-col justify-between h-48 text-[10px] font-mono select-text py-0.5">
+        <div className="flex-1 flex flex-col justify-between h-36 text-[9.5px] font-mono select-text py-0.5">
           {tickLevels.map((lvl, idx) => {
             const isTop = idx === 0;
             const isBottom = idx === tickLevels.length - 1;
@@ -303,13 +300,12 @@ export default function StressLegend() {
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-px bg-slate-600" />
                   <span
-                    className={`font-semibold ${
-                      isTop
+                    className={`font-semibold ${isTop
                         ? 'text-red-400 font-bold'
                         : isBottom
-                        ? 'text-blue-400 font-bold'
-                        : 'text-slate-300'
-                    }`}
+                          ? 'text-blue-400 font-bold'
+                          : 'text-slate-300'
+                      }`}
                   >
                     {lvl.label}
                   </span>
@@ -399,7 +395,7 @@ export default function StressLegend() {
 
       {/* Engineering Tip */}
       <div className="mt-2 text-[9px] text-slate-500 flex items-start gap-1 leading-tight">
-        <Info className="w-3 h-3 flex-shrink-0 text-slate-400 mt-0.5" />
+        <Info className="w-3 h-3 shrink-0 text-slate-400 mt-0.5" />
         <span>
           Tip: Lowering Upper Limit spreads full rainbow contrast across low-stress members to
           reveal internal load transmission pathways.

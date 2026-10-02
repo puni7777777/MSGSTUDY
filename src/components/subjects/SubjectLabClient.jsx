@@ -16,6 +16,7 @@ import StressLegend from '../hud/StressLegend';
 import ChallengeBriefingModal from '../hud/ChallengeBriefingModal';
 import PostMortemModal from '../hud/PostMortemModal';
 import TheoryModal from '../hud/TheoryModal';
+import MissionStudioModal from '../hud/MissionStudioModal';
 import UpcomingSubjectModal from '../layout/UpcomingSubjectModal';
 
 // Specialized Subject Sandboxes
@@ -66,9 +67,11 @@ export default function SubjectLabClient({ subjectId }) {
             {/* Floating ANSYS Stress Contour Scale */}
             <StressLegend />
 
-            {/* Floating CAD Builder Toolbar */}
-            <div className="absolute top-4 left-4 z-20">
-              <BuilderToolbar />
+            {/* Floating CAD Builder / Theory Toolbar (Pinned above bottom panel with 16px margin) */}
+            <div className="absolute top-4 bottom-4 left-4 z-20 flex flex-col pointer-events-none max-w-[calc(100vw-2rem)]">
+              <div className="pointer-events-auto flex flex-col max-h-full">
+                <BuilderToolbar />
+              </div>
             </div>
 
             {/* Member & Joint Inspector */}
@@ -86,6 +89,7 @@ export default function SubjectLabClient({ subjectId }) {
         <ChallengeBriefingModal />
         <PostMortemModal />
         <TheoryModal />
+        <MissionStudioModal />
         <UpcomingSubjectModal />
       </main>
     );

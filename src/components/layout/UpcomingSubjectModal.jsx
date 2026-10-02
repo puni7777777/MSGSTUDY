@@ -11,7 +11,7 @@ export default function UpcomingSubjectModal() {
   if (!upcomingSubjectPreview) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="relative w-full max-w-xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl p-6 font-mono text-slate-100 select-none max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-start justify-between pb-3 border-b border-slate-800">
@@ -89,7 +89,7 @@ export default function UpcomingSubjectModal() {
                   key={idx}
                   className="flex items-center gap-2 p-2 rounded-lg bg-slate-950/50 border border-slate-800 text-slate-300 text-[11px]"
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                   <span>{t}</span>
                 </div>
               ))}
@@ -98,7 +98,7 @@ export default function UpcomingSubjectModal() {
 
           {/* Notice */}
           <div className="p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/30 text-cyan-200 text-xs flex items-start gap-2.5">
-            <Sparkles className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+            <Sparkles className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
             <div>
               <strong className="text-white block mb-0.5">Active Laboratory Available Now:</strong>
               <span>

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSimulationStore } from '../../core/store/useSimulationStore';
 import { computeBeamDiagrams } from '../../core/solvers/beamDiagrams';
-import { MODULE_1_CHALLENGES } from '../../content/challenges/module1-challenges';
+import { getAllMissions } from '../../core/missions/missionRegistry';
 import { BarChart3, X } from 'lucide-react';
 
 export default function SfdBmdDiagram() {
@@ -13,8 +13,10 @@ export default function SfdBmdDiagram() {
   const nodes = useSimulationStore((s) => s.nodes);
   const loadMultiplier = useSimulationStore((s) => s.loadMultiplier);
   const activeChallengeId = useSimulationStore((s) => s.activeChallengeId);
+  const customMissions = useSimulationStore((s) => s.customMissions);
 
-  const challenge = MODULE_1_CHALLENGES.find((c) => c.id === activeChallengeId);
+  const allMissions = getAllMissions(customMissions);
+  const challenge = allMissions.find((c) => c.id === activeChallengeId);
   const span = challenge?.environment?.spanMeters || 12;
 
   useEffect(() => {
@@ -144,10 +146,13 @@ export default function SfdBmdDiagram() {
     ctx.fillText(`${span.toFixed(1)}m`, padLeft + plotW - 15, bmdTop + plotH + 12);
   }, [showSfdBmd, nodes, loadMultiplier, span]);
 
+  const isCustomSim = activeChallengeId === 'custom_sim';
+  const leftPositionClass = isCustomSim ? 'sm:left-44' : 'sm:left-[23.5rem]';
+
   if (!showSfdBmd) return null;
 
   return (
-    <div className="absolute bottom-16 left-4 w-[calc(100vw-2rem)] sm:w-96 max-w-sm bg-slate-900/95 backdrop-blur border border-slate-700/80 rounded-lg shadow-2xl p-3 z-30 font-mono select-none animate-in fade-in slide-in-from-bottom-4 duration-150">
+    <div className={`absolute bottom-4 left-4 ${leftPositionClass} w-[calc(100vw-2rem)] sm:w-96 max-w-sm bg-slate-900/95 backdrop-blur border border-slate-700/80 rounded-lg shadow-2xl p-3 z-30 font-mono select-none animate-in fade-in slide-in-from-bottom-4 duration-150`}>
       <div className="flex items-center justify-between pb-2 border-b border-slate-800">
         <div className="flex items-center gap-2">
           <BarChart3 className="w-4 h-4 text-purple-400" />

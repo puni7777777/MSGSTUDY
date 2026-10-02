@@ -111,7 +111,7 @@ export default function MachineDesignSandbox({ subject }) {
           {/* Mohr's Circle SVG Display */}
           <div className="relative w-full h-64 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden">
             {/* Background Grid */}
-            <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
+            <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] bg-size-[16px_16px] opacity-30" />
 
             <svg className="w-full h-full" viewBox="0 0 500 250">
               {/* Axes: Horizontal = Normal Stress σ, Vertical = Shear Stress τ */}

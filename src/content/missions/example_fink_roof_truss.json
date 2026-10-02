@@ -1,0 +1,50 @@
+{
+  "$schema": "https://teardownlab.com/schemas/mission.v1.json",
+  "id": "alpine_fink_roof_truss",
+  "title": "The Alpine Chalet Fink Roof",
+  "subtitle": "Span a 12m roof ridge and withstand heavy snowpack without collapse.",
+  "difficulty": "Introductory",
+  "estimatedMinutes": 12,
+  "scenario": "A ski resort lodge in the Swiss Alps requires a timber-and-steel pitched roof truss. Heavy winter snow accumulations apply a uniform distributed vertical snowpack load across the upper rafters (-15 kN per node).",
+  "backgroundBriefing": "The Fink truss is a classic pitched roof design characterized by V-shaped web sub-triangulation that keeps compression web members short and perpendicular to the sloping top chords. Pinned at one wall and resting on a roller at the opposite wall to accommodate thermal expansion.",
+  "pedagogicalTakeaways": [
+    "Pitched rafters carry both axial compression and outward thrust against the walls.",
+    "The bottom tie member is in pure tension, holding the two roof walls together.",
+    "Fink web geometry keeps diagonal struts short, minimizing Euler buckling risk."
+  ],
+  "constraints": {
+    "minFactorOfSafety": 1.5,
+    "maxMassKg": 950,
+    "maxBudgetDollars": 2200,
+    "maxDeflectionMm": 18.0
+  },
+  "environment": {
+    "spanMeters": 12,
+    "heightMeters": 4.5,
+    "groundY": 0
+  },
+  "nodes": [
+    { "id": "heel_left", "x": 0, "y": 0, "support": "pinned" },
+    { "id": "mid_bot", "x": 6.0, "y": 0 },
+    { "id": "heel_right", "x": 12.0, "y": 0, "support": "roller" },
+
+    { "id": "rafter_l1", "x": 3.0, "y": 1.75, "loadY": -15.0 },
+    { "id": "peak", "x": 6.0, "y": 3.5, "loadY": -25.0 },
+    { "id": "rafter_r1", "x": 9.0, "y": 1.75, "loadY": -15.0 }
+  ],
+  "members": [
+    { "from": "heel_left", "to": "mid_bot", "material": "steel", "section": "round_50mm" },
+    { "from": "mid_bot", "to": "heel_right", "material": "steel", "section": "round_50mm" },
+
+    { "from": "heel_left", "to": "rafter_l1", "material": "steel", "section": "tube_80x4mm" },
+    { "from": "rafter_l1", "to": "peak", "material": "steel", "section": "tube_80x4mm" },
+    { "from": "peak", "to": "rafter_r1", "material": "steel", "section": "tube_80x4mm" },
+    { "from": "rafter_r1", "to": "heel_right", "material": "steel", "section": "tube_80x4mm" },
+
+    { "from": "heel_left", "to": "mid_bot", "material": "steel", "section": "round_30mm" },
+    { "from": "rafter_l1", "to": "mid_bot", "material": "steel", "section": "round_30mm" },
+    { "from": "peak", "to": "mid_bot", "material": "steel", "section": "round_30mm" },
+    { "from": "rafter_r1", "to": "mid_bot", "material": "steel", "section": "round_30mm" }
+  ],
+  "tags": ["Roof Truss", "Fink", "Snow Load", "Pitched Rafters"]
+}

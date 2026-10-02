@@ -41,9 +41,9 @@ export default function CourseSubjectCardHeader({ subjectOverride }) {
   };
 
   return (
-    <div className="w-full bg-slate-900/95 border-b border-slate-800 text-slate-100 font-mono select-none transition-all duration-200">
+    <div className="relative z-40 w-full bg-slate-900/95 border-b border-slate-800 text-slate-100 font-mono select-none transition-all duration-200">
       {/* Top Academic Banner */}
-      <div className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800/80">
+      <div className="px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800/80">
         {/* Navigation & Subject Title */}
         <div className="flex items-center gap-3">
           {/* Back to All Subjects Portal Button */}
@@ -130,13 +130,13 @@ export default function CourseSubjectCardHeader({ subjectOverride }) {
         </div>
       </div>
 
-      {/* Expandable Course Metadata Drawer */}
+      {/* Expandable Course Metadata Drawer (Overlay Popover) */}
       {!isCourseMetaCollapsed && (
-        <div className="px-4 py-3 bg-slate-950/60 border-b border-slate-800/80 text-xs animate-in slide-in-from-top-2 duration-150">
+        <div className="absolute top-full left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 shadow-2xl px-4 py-3 text-xs animate-in slide-in-from-top-2 duration-150">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-2.5">
             {/* Level & Term */}
             <div className="flex items-start gap-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800/80">
-              <Calendar className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+              <Calendar className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
               <div>
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">
                   Academic Term & Level
@@ -149,7 +149,7 @@ export default function CourseSubjectCardHeader({ subjectOverride }) {
 
             {/* Credits & Workload */}
             <div className="flex items-start gap-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800/80">
-              <Award className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+              <Award className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
               <div>
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">
                   Credits & Structure
@@ -162,7 +162,7 @@ export default function CourseSubjectCardHeader({ subjectOverride }) {
 
             {/* Prerequisites */}
             <div className="flex items-start gap-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800/80">
-              <Layers className="w-4 h-4 text-indigo-400 mt-0.5 flex-shrink-0" />
+              <Layers className="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" />
               <div>
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">
                   Course Prerequisites
@@ -175,7 +175,7 @@ export default function CourseSubjectCardHeader({ subjectOverride }) {
 
             {/* Instruction Group */}
             <div className="flex items-start gap-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800/80">
-              <Sparkles className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+              <Sparkles className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
               <div>
                 <span className="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">
                   Academic Division
@@ -204,7 +204,7 @@ export default function CourseSubjectCardHeader({ subjectOverride }) {
             </div>
 
             <div className="text-[10px] text-slate-400 flex items-center gap-1">
-              <Info className="w-3 h-3 text-cyan-400 flex-shrink-0" />
+              <Info className="w-3 h-3 text-cyan-400 shrink-0" />
               <span>Multi-Subject Navigation Active</span>
             </div>
           </div>

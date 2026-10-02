@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T17:10:00.000Z",
+  "title": "Design System: The Teardown Lab",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Supersonic Cyan",
+        "canonical": "#06b6d4",
+        "tonalRamp": [
+          "#083344",
+          "#164e63",
+          "#155e75",
+          "#0e7490",
+          "#06b6d4",
+          "#22d3ee",
+          "#67e8f9",
+          "#cffafe"
+        ]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Vorticity Amber",
+        "canonical": "#f59e0b",
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#92400e",
+          "#b45309",
+          "#f59e0b",
+          "#fbbf24",
+          "#fcd34d",
+          "#fef3c7"
+        ]
+      },
+      "accent-danger": {
+        "role": "tertiary",
+        "displayName": "Critical Stagnation Red",
+        "canonical": "#ef4444",
+        "tonalRamp": [
+          "#450a0a",
+          "#7f1d1d",
+          "#991b1b",
+          "#b91c1c",
+          "#ef4444",
+          "#f87171",
+          "#fca5a5",
+          "#fee2e2"
+        ]
+      },
+      "accent-safe": {
+        "role": "tertiary",
+        "displayName": "Laminar Emerald",
+        "canonical": "#10b981",
+        "tonalRamp": [
+          "#022c22",
+          "#064e3b",
+          "#065f46",
+          "#047857",
+          "#10b981",
+          "#34d399",
+          "#6ee7b7",
+          "#d1fae5"
+        ]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Deep Void Slate",
+        "canonical": "#020617",
+        "tonalRamp": [
+          "#020617",
+          "#0f172a",
+          "#1e293b",
+          "#334155",
+          "#475569",
+          "#64748b",
+          "#94a3b8",
+          "#f8fafc"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Major module and laboratory titles."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Mission names, inspection headings, and autopsy steps."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Panel section headers and formula categories."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Real-time calculation readouts and telemetry values."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Variable names, engineering units, and status indicators."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hud-glass-glow",
+        "value": "0 0 15px rgba(6, 182, 212, 0.15)",
+        "purpose": "Perimeter glow for active telemetry panels and selected members."
+      },
+      {
+        "name": "danger-pulse-glow",
+        "value": "0 0 20px rgba(239, 68, 68, 0.35)",
+        "purpose": "Warning aura during destructive teardown testing."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-instrument",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Fast tactile response for telemetry toggles and steppers."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-contrast cyan button for mission launch and parameter execution.",
+      "html": "<button class=\"ds-btn-primary\">LAUNCH LAB</button>",
+      "css": ".ds-btn-primary { background: #06b6d4; color: #020617; font-family: ui-monospace, monospace; font-size: 11px; font-weight: 800; letter-spacing: 0.05em; padding: 6px 14px; border-radius: 6px; border: none; cursor: pointer; transition: background 0.15s ease, transform 0.1s ease; } .ds-btn-primary:hover { background: #22d3ee; transform: translateY(-1px); }"
+    },
+    {
+      "name": "Destructive Teardown Trigger",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Emergency-style crimson button that triggers structural failure cascades.",
+      "html": "<button class=\"ds-btn-danger\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"currentColor\" style=\"margin-right:6px\"><path d=\"M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z\"/></svg>TEARDOWN TO FAILURE</button>",
+      "css": ".ds-btn-danger { display: inline-flex; items-center: center; background: #dc2626; color: #ffffff; font-family: ui-monospace, monospace; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; padding: 8px 16px; border-radius: 6px; border: 1px solid #ef4444; cursor: pointer; text-transform: uppercase; transition: background 0.15s ease, box-shadow 0.15s ease; } .ds-btn-danger:hover { background: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }"
+    },
+    {
+      "name": "Numeric Stepper Input",
+      "kind": "input",
+      "refersTo": "input-stepper",
+      "description": "Dark input field with integrated micro-stepper arrows for real-time parameter tweaking.",
+      "html": "<div class=\"ds-stepper-wrap\"><input class=\"ds-stepper-input\" type=\"text\" value=\"50.0\" /><div class=\"ds-stepper-btns\"><button class=\"ds-stepper-btn\"><svg width=\"8\" height=\"8\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5 15l7-7 7 7\"/></svg></button><button class=\"ds-stepper-btn\"><svg width=\"8\" height=\"8\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/></svg></button></div></div>",
+      "css": ".ds-stepper-wrap { position: relative; width: 90px; } .ds-stepper-input { width: 100%; background: #1e293b; border: 1px solid #334155; border-radius: 4px; padding: 4px 20px 4px 8px; color: #f8fafc; font-family: ui-monospace, monospace; font-size: 11px; font-weight: 700; outline: none; } .ds-stepper-input:focus { border-color: #06b6d4; } .ds-stepper-btns { position: absolute; right: 2px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; } .ds-stepper-btn { background: transparent; border: none; color: #94a3b8; padding: 1px; cursor: pointer; line-height: 1; } .ds-stepper-btn:hover { color: #22d3ee; }"
+    },
+    {
+      "name": "HUD Glass Card",
+      "kind": "card",
+      "refersTo": "card-panel",
+      "description": "Translucent dark-glass container for HUD telemetry, inspector tabs, and formulas.",
+      "html": "<div class=\"ds-card-glass\"><div class=\"ds-card-header\"><span class=\"ds-card-title\">THEORY &amp; FORMULAS</span><span class=\"ds-card-badge\">PREDEFINED</span></div><div class=\"ds-card-body\">&sigma; = F / A</div></div>",
+      "css": ".ds-card-glass { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px); border: 1px solid rgba(51, 65, 85, 0.8); border-radius: 8px; padding: 12px; font-family: ui-monospace, monospace; color: #f8fafc; } .ds-card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px; } .ds-card-title { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; color: #f8fafc; } .ds-card-badge { font-size: 9px; font-weight: 700; background: #1e293b; color: #94a3b8; border: 1px solid #334155; padding: 1px 4px; border-radius: 3px; } .ds-card-body { font-size: 13px; font-weight: 900; color: #22d3ee; text-align: center; padding: 6px 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Kinetic Wind Tunnel",
+    "overview": "The Teardown Lab treats structural mechanics not as static textbook diagrams, but as a live, high-velocity computational wind tunnel. The interface is an engineering flight deck: sleek computational geometry, vector heatmaps, high-density data readouts, and responsive tactile instruments. Every joint, beam, and boundary constraint is visual evidence of dynamic equilibrium.\n\nThe interface prioritizes dense scanability, instrument precision, and immediate visual feedback. Panels hover over an expansive 3D WebGL viewport like flight-director HUD overlays. Surfaces do not rely on heavy drop shadows or decorative gradients; depth is established through tonal dark-glass translucency, subtle hairline borders, and glowing active accents.",
+    "keyCharacteristics": [
+      "High-Density Telemetry: Compact monospace typography, structured data tables, and inline SI engineering units.",
+      "Aerodynamic Vector Heatmaps: ANSYS-standard stress contour gradients communicating structural strain.",
+      "Glass Cockpit Layering: Translucent slate backdrops with backdrop blur and slate-700 hairline borders.",
+      "Tactile Instrument Controls: Custom micro-stepper up/down arrow buttons, immediate slider feedback, and responsive mode toggles."
+    ],
+    "rules": [
+      {
+        "name": "The Telemetry Rarity Rule",
+        "body": "Glowing colored accents (cyan, amber, red) must never exceed 15% of any surface area. The deep slate neutral canvas provides the high-contrast negative space that allows critical warnings to command instant cognitive attention.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Number Rule",
+        "body": "All numerical readouts, coordinate listings, forces, and safety factors must render with monospaced figures (tabular-nums / font-mono) to prevent visual jitter during live simulation scrubs.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Separation Rule",
+        "body": "Never use diffuse ambient shadows to separate adjacent UI elements. Separation must be achieved strictly through 1px border contrast (border-slate-800 to border-slate-700) and slight tone steps.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do format all calculated numerical outputs with strict rounding precision (.toFixed(1) or .toFixed(2)) and pair them with standard SI units.",
+      "Do maintain a minimum contrast ratio of 7:1 for telemetry readouts against dark backgrounds using slate-100 or slate-200.",
+      "Do use custom NumericStepperInput components for numeric parameters, preserving the styled SVG up/down arrows.",
+      "Do ensure HUD panels use backdrop-blur and translucent backgrounds so the underlying 3D simulation remains visible.",
+      "Do isolate destructive actions (TEARDOWN TO FAILURE) with explicit red visual semantics."
+    ],
+    "donts": [
+      "Don't use generic browser default number input spinners with blue OS outlines.",
+      "Don't use saturated bright backgrounds or light themes; the platform is strictly a dark-mode flight deck.",
+      "Don't introduce heavy multi-layer drop shadows (shadow-2xl blur > 40px) that muddy the sharp instrument aesthetic.",
+      "Don't allow UI panels to overlap the 3D model without clear z-index layering and collapsible panel triggers.",
+      "Don't hide mathematical formulas behind black-box outputs; always expose governing equations alongside live calculated values."
+    ]
+  }
+}

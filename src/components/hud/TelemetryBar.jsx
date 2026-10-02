@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useSimulationStore } from '../../core/store/useSimulationStore';
-import { MODULE_1_CHALLENGES } from '../../content/challenges/module1-challenges';
+import { getAllMissions } from '../../core/missions/missionRegistry';
 import {
   ShieldAlert,
   ShieldCheck,
@@ -16,9 +16,11 @@ import {
 export default function TelemetryBar() {
   const solverResult = useSimulationStore((s) => s.solverResult);
   const activeChallengeId = useSimulationStore((s) => s.activeChallengeId);
+  const customMissions = useSimulationStore((s) => s.customMissions);
   const loadMultiplier = useSimulationStore((s) => s.loadMultiplier);
 
-  const challenge = MODULE_1_CHALLENGES.find((c) => c.id === activeChallengeId);
+  const allMissions = getAllMissions(customMissions);
+  const challenge = allMissions.find((c) => c.id === activeChallengeId);
   const constraints = challenge?.constraints;
 
   const fos = solverResult.minFactorOfSafety;
